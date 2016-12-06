@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  localhost
--- Généré le :  Mar 06 Décembre 2016 à 13:29
+-- Généré le :  Mar 06 Décembre 2016 à 13:55
 -- Version du serveur :  5.6.33
 -- Version de PHP :  7.0.12
 
@@ -31,20 +31,15 @@ CREATE TABLE `commit` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `groupe`
+-- Structure de la table `notification`
 --
 
-CREATE TABLE `groupe` (
+CREATE TABLE `notification` (
   `id` int(11) NOT NULL,
-  `name` varchar(50) NOT NULL
+  `name` varchar(100) NOT NULL,
+  `description` varchar(250) DEFAULT NULL,
+  `importance` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Contenu de la table `groupe`
---
-
-INSERT INTO `groupe` (`id`, `name`) VALUES
-(1, 'test');
 
 -- --------------------------------------------------------
 
@@ -99,7 +94,6 @@ CREATE TABLE `utilisateur` (
   `firstname` varchar(100) NOT NULL,
   `lastname` varchar(100) NOT NULL,
   `mail` varchar(200) NOT NULL,
-  `groupe_id` int(11) NOT NULL,
   `last_login_on` date DEFAULT NULL,
   `date_cree` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -108,8 +102,8 @@ CREATE TABLE `utilisateur` (
 -- Contenu de la table `utilisateur`
 --
 
-INSERT INTO `utilisateur` (`id`, `login`, `password`, `firstname`, `lastname`, `mail`, `groupe_id`, `last_login_on`, `date_cree`) VALUES
-(1, 'root', 'toto', 'root', 'toto', 'toto@root.com', 1, NULL, '2016-12-06');
+INSERT INTO `utilisateur` (`id`, `login`, `password`, `firstname`, `lastname`, `mail`, `last_login_on`, `date_cree`) VALUES
+(1, 'root', 'toto', 'root', 'toto', 'toto@root.com', NULL, '2016-12-06');
 
 --
 -- Index pour les tables exportées
@@ -122,9 +116,9 @@ ALTER TABLE `commit`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `groupe`
+-- Index pour la table `notification`
 --
-ALTER TABLE `groupe`
+ALTER TABLE `notification`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -156,10 +150,10 @@ ALTER TABLE `utilisateur`
 --
 
 --
--- AUTO_INCREMENT pour la table `groupe`
+-- AUTO_INCREMENT pour la table `notification`
 --
-ALTER TABLE `groupe`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `notification`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `projet`
 --
