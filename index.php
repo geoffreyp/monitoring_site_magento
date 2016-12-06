@@ -542,9 +542,9 @@ require('controller/redmine.php');
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>53<sup style="font-size: 20px">%</sup></h3>
+              <h3><?php echo getNbTicketClosedToday("c232cdf169899c7c6074eecf42f7827ae37be34e"); ?></h3>
 
-              <p>Bounce Rate</p>
+              <p>Ticket Closed Today</p>
             </div>
             <div class="icon">
               <i class="ion ion-stats-bars"></i>
