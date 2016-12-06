@@ -15,5 +15,3 @@ function getNbTicket($apikey){
     //echo ($json->{'total_count'});
     return $json->{'total_count'};
 }
-
-getNbTicket("c232cdf169899c7c6074eecf42f7827ae37be34e");
