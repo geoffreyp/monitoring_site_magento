@@ -19,6 +19,9 @@
       "email": "abdullah@almsaeedstudio.com"
     }
   ],
+  "require": {
+    "guzzlehttp/guzzle": "~6.0"
+  },
   "license": "MIT",
   "support": {
     "issues": "https://github.com/almasaeed2010/AdminLTE/issues"

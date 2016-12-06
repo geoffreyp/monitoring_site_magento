@@ -1,3 +1,7 @@
+<?php
+error_reporting(E_ALL);
+require('controller/redmine.php');
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -523,9 +527,9 @@
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>150</h3>
+              <h3><?php echo getNbTicket("c232cdf169899c7c6074eecf42f7827ae37be34e"); ?></h3>
 
-              <p>New Orders</p>
+              <p>Ticket Opened</p>
             </div>
             <div class="icon">
               <i class="ion ion-bag"></i>
