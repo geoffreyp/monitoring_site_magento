@@ -1,4 +1,9 @@
 <?php
+session_start();
+if(empty($_SESSION['login']) && empty($_SESSION['password']) ){
+    header('Location: /monitoring_site_magento/login.php');
+}
+
 error_reporting(E_ALL);
 require('controller/redmine.php');
 ?>
@@ -291,7 +296,7 @@ require('controller/redmine.php');
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="deconnexion.php" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
