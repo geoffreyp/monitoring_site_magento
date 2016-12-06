@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  localhost
--- Généré le :  Mar 06 Décembre 2016 à 11:29
+-- Généré le :  Mar 06 Décembre 2016 à 13:29
 -- Version du serveur :  5.6.33
 -- Version de PHP :  7.0.12
 
@@ -24,7 +24,7 @@ CREATE TABLE `commit` (
   `id` varchar(100) NOT NULL,
   `user_id` int(11) NOT NULL,
   `titre` varchar(100) NOT NULL,
-  `commentaire` varchar(250) NOT NULL,
+  `commentaire` varchar(250) DEFAULT NULL,
   `date_cree` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -39,6 +39,13 @@ CREATE TABLE `groupe` (
   `name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Contenu de la table `groupe`
+--
+
+INSERT INTO `groupe` (`id`, `name`) VALUES
+(1, 'test');
+
 -- --------------------------------------------------------
 
 --
@@ -48,10 +55,10 @@ CREATE TABLE `groupe` (
 CREATE TABLE `projet` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
-  `description` varchar(250) NOT NULL,
-  `ssh_url` varchar(250) NOT NULL,
-  `http_url` varchar(250) NOT NULL,
-  `web_url` varchar(250) NOT NULL
+  `description` varchar(250) DEFAULT NULL,
+  `ssh_url` varchar(250) DEFAULT NULL,
+  `http_url` varchar(250) DEFAULT NULL,
+  `web_url` varchar(250) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -75,8 +82,8 @@ CREATE TABLE `ticket` (
   `id` varchar(100) NOT NULL,
   `statut_id` int(11) NOT NULL,
   `date_cree` date NOT NULL,
-  `date_fin` date NOT NULL,
-  `date_modif` date NOT NULL
+  `date_fin` date DEFAULT NULL,
+  `date_modif` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -93,9 +100,16 @@ CREATE TABLE `utilisateur` (
   `lastname` varchar(100) NOT NULL,
   `mail` varchar(200) NOT NULL,
   `groupe_id` int(11) NOT NULL,
-  `last_login_on` date NOT NULL,
+  `last_login_on` date DEFAULT NULL,
   `date_cree` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `utilisateur`
+--
+
+INSERT INTO `utilisateur` (`id`, `login`, `password`, `firstname`, `lastname`, `mail`, `groupe_id`, `last_login_on`, `date_cree`) VALUES
+(1, 'root', 'toto', 'root', 'toto', 'toto@root.com', 1, NULL, '2016-12-06');
 
 --
 -- Index pour les tables exportées
@@ -145,7 +159,7 @@ ALTER TABLE `utilisateur`
 -- AUTO_INCREMENT pour la table `groupe`
 --
 ALTER TABLE `groupe`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT pour la table `projet`
 --
@@ -160,4 +174,4 @@ ALTER TABLE `statut`
 -- AUTO_INCREMENT pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
