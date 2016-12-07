@@ -1,4 +1,9 @@
 <?php
+session_start();
+if(empty($_SESSION['login']) && empty($_SESSION['password']) ){
+    header('Location: /login.php');
+}
+
 error_reporting(E_ALL);
 require('controller/redmine.php');
 ?>
@@ -113,9 +118,22 @@ require('controller/redmine.php');
               <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
               <span class="hidden-xs">Alexander Pierce</span>
             </a>
+            <ul class="dropdown-menu">
+              <!-- Menu Footer-->
+              <li class="user-footer">
+                <div class="pull-left">
+                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                </div>
+                <div class="pull-right">
+                  <a href="deconnexion.php" class="btn btn-default btn-flat">Sign out</a>
+                </div>
+              </li>
+            </ul>
           </li>
           <!-- Control Sidebar Toggle Button -->
-
+          <li>
+            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+          </li>
         </ul>
       </div>
     </nav>
