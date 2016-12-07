@@ -5,7 +5,7 @@ class Bdd{
     function __construct(){
         try
         {
-            $this->bdd = new PDO('mysql:host=sql.location-minecraft.com;port=3306;dbname=lcmc_68699;charset=utf8', 'lcmc_68699', 'toto');
+            $this->bdd = new PDO('mysql:host=localhost;dbname=monitoring;charset=utf8', 'root', 'root');
         }
         catch (Exception $e)
         {

@@ -122,5 +122,3 @@ function getTicket($apikey){
         }
     }
 }
-
-getTicket("c232cdf169899c7c6074eecf42f7827ae37be34e");
