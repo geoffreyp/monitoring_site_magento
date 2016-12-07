@@ -5,7 +5,7 @@ class Bdd{
     function __construct(){
         try
         {
-            $this->bdd = new PDO('mysql:host=sql.location-minecraft.com;port=3306;dbname=lcmc_68699;charset=utf8', 'lcmc_68699', 'toto');
+            $this->bdd = new PDO('mysql:host=localhost:8889;dbname=monitoring;charset=utf8', 'root', 'root');
         }
         catch (Exception $e)
         {
@@ -55,6 +55,22 @@ class Bdd{
 
     function getTicketExist($id){
         $resp = $this->bdd->query('SELECT COUNT(*) FROM ticket WHERE id ='.$id)->fetchColumn();
+
+        return $resp;
+    }
+
+    function insertUser($id, $name, $group_id){
+        $req = $this->bdd->prepare('INSERT INTO utilisateur(id, name, group_id) VALUES(:id, :name, :group_id)');
+        $req->execute(array(
+            'id' => $id,
+            'name' => $name,
+            'group_id' => $group_id
+        ));
+    }
+
+
+    function getUserExist($id){
+        $resp = $this->bdd->query('SELECT COUNT(*) FROM utilisateur WHERE id ='.$id)->fetchColumn();
 
         return $resp;
     }

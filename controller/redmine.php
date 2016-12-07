@@ -123,4 +123,32 @@ function getTicket($apikey){
     }
 }
 
-getTicket("c232cdf169899c7c6074eecf42f7827ae37be34e");
+function getUser($apikey){
+
+    $client = new GuzzleHttp\Client(['base_uri' => 'http://www.hostedredmine.com/']);
+    $response = $client->request('GET', 'http://www.hostedredmine.com/projects/ulco2016project1/memberships.json',
+        ['headers' => ['X-Redmine-API-Key' => $apikey]]);
+
+    $json = json_decode($response->getBody());
+
+    $nbElements  = $json->{'total_count'};
+
+    for ($i=0; $i<$nbElements; $i++) {
+
+        $idUser = $json->memberships[$i]->user->id;
+
+        $bdd = new Bdd();
+        $verif = $bdd->getUserExist($idUser);
+
+        if ($verif == 0) {
+
+            $name = $json->memberships[$i]->user->name;
+            $group_id = $json->memberships[$i]->roles[0]->id;
+
+            $bdd->insertUser($idUser, $name, $group_id);
+        }
+    }
+}
+
+
+getUser("c232cdf169899c7c6074eecf42f7827ae37be34e");
