@@ -62,7 +62,7 @@
                 session_start();
                 $_SESSION["login"] = $login;
                 $_SESSION["password"]= $password;
-                header('Location: /index.php');
+                header('Location: index.php');
             } else {
                 print "<div class=\"alert alert-error\">Mauvaise adresse email et/ou mot de passe !</div>";
             }
