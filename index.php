@@ -237,6 +237,24 @@ require('controller/redmine.php');
               </div>
           </div>
       </div>
+      <div class="row">
+            <div class="box box-widget widget-user-2">
+                <!-- Add the bg color to the header using any of the bg-* classes -->
+                <div class="widget-user-header bg-aqua">
+                    <!-- /.widget-user-image -->
+                    <h3 class="widget-user-username">Number of Tickets By Status</h3>
+                </div>
+                <div class="box-footer no-padding">
+                    <ul class="nav nav-stacked">
+                        <li><a href="#">New <span class="pull-right badge bg-blue"><?php echo getNbTicketByStatus("c232cdf169899c7c6074eecf42f7827ae37be34e",1); ?></span></a></li>
+                        <li><a href="#">Assigned <span class="pull-right badge bg-blue"><?php echo getNbTicketByStatus("c232cdf169899c7c6074eecf42f7827ae37be34e",2); ?></span></a></li>
+                        <li><a href="#">In Progress <span class="pull-right badge bg-blue"><?php echo getNbTicketByStatus("c232cdf169899c7c6074eecf42f7827ae37be34e",8); ?></span></a></li>
+                        <li><a href="#">Resolved <span class="pull-right badge bg-green"><?php echo getNbTicketByStatus("c232cdf169899c7c6074eecf42f7827ae37be34e",3); ?></span></a></li>
+                        <li><a href="#">Blocked <span class="pull-right badge bg-red"><?php echo getNbTicketByStatus("c232cdf169899c7c6074eecf42f7827ae37be34e",7); ?></span></a></li>
+                    </ul>
+                </div>
+            </div>
+      </div>
 
     </section>
     <!-- /.content -->

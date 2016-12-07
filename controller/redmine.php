@@ -74,3 +74,13 @@ function getNbTicketByGroup($apikey, $group){
     return $nb;
 }
 
+function getNbTicketByStatus($apikey, $status_id){
+
+    $client = new GuzzleHttp\Client(['base_uri' => 'http://www.hostedredmine.com/']);
+    $response = $client->request('GET', 'http://www.hostedredmine.com/issues.json?project_id=43188&status_id='.$status_id,
+        ['headers' => ['X-Redmine-API-Key' => $apikey]]);
+
+    $json = json_decode($response->getBody());
+
+    return $json->{'total_count'};
+}
