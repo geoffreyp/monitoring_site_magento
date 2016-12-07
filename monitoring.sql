@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  localhost
--- Généré le :  Mer 07 Décembre 2016 à 14:37
+-- Généré le :  Mer 07 Décembre 2016 à 16:51
 -- Version du serveur :  5.6.33
 -- Version de PHP :  7.0.12
 
@@ -31,6 +31,25 @@ CREATE TABLE `commit` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `group`
+--
+
+CREATE TABLE `group` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `group`
+--
+
+INSERT INTO `group` (`id`, `name`) VALUES
+(3, 'Manager'),
+(4, 'Developer');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `notification`
 --
 
@@ -38,7 +57,9 @@ CREATE TABLE `notification` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `description` varchar(250) DEFAULT NULL,
-  `importance` int(1) NOT NULL
+  `importance` int(1) NOT NULL,
+  `active` int(11) NOT NULL DEFAULT '0',
+  `date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -123,6 +144,32 @@ CREATE TABLE `ticket` (
   `date_modif` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Contenu de la table `ticket`
+--
+
+INSERT INTO `ticket` (`id`, `subject`, `description`, `statut_id`, `priorite_id`, `tracker_id`, `user_id`, `project_id`, `date_cree`, `date_fin`, `date_modif`) VALUES
+(618598, 'Première demande', 'Ceci est la première demande', 1, 4, 4, 56780, 43188, '2016-12-05T21:41:09Z', NULL, '2016-12-06T09:33:03Z'),
+(618599, 'Deuxième demande', '', 1, 4, 4, 56780, 43188, '2016-12-05T21:41:50Z', NULL, '2016-12-05T21:41:50Z'),
+(618770, 'Urgence, le site ne répond plus. ', '', 1, 7, 4, 56780, 43188, '2016-12-06T09:33:44Z', NULL, '2016-12-06T09:33:44Z'),
+(618772, 'Problème tunnel de commande', 'Les belges ne peuvent pas commander.', 5, 6, 4, 56780, 43188, '2016-12-06T09:34:46Z', '2016-12-07T08:23:04Z', '2016-12-07T08:23:04Z'),
+(618866, 'Issue tes', '', 1, 6, 4, 58454, 43188, '2016-12-06T12:44:10Z', NULL, '2016-12-06T12:44:10Z'),
+(618890, 'low ticket', '', 1, 3, 4, 58454, 43188, '2016-12-06T14:03:14Z', NULL, '2016-12-07T08:24:14Z'),
+(618892, 'testjojo', '', 5, 4, 4, 58454, 43188, '2016-12-06T14:10:15Z', '2016-12-06T14:10:15Z', '2016-12-06T14:10:15Z'),
+(618913, 'testjojo2', '', 5, 4, 4, 58454, 43188, '2016-12-06T15:12:02Z', '2016-12-06T15:12:02Z', '2016-12-06T15:12:02Z'),
+(618941, 'Test Nb Demande / groupe', '', 1, 5, 4, 58454, 43188, '2016-12-06T17:18:43Z', NULL, '2016-12-06T17:18:43Z'),
+(619078, 'Test Demande', '', 1, 4, 4, 58454, 43188, '2016-12-07T08:14:34Z', NULL, '2016-12-07T08:14:34Z'),
+(619096, 'Test status 1', '', 7, 4, 4, 58454, 43188, '2016-12-07T09:07:19Z', NULL, '2016-12-07T09:07:19Z'),
+(619098, 'Test status 2', '', 1, 4, 4, 58454, 43188, '2016-12-07T09:08:11Z', NULL, '2016-12-07T09:08:11Z'),
+(619099, 'Test status 3', '', 2, 4, 4, 58454, 43188, '2016-12-07T09:08:43Z', NULL, '2016-12-07T09:08:43Z'),
+(619100, 'Test status 4', '', 8, 4, 4, 58454, 43188, '2016-12-07T09:09:22Z', NULL, '2016-12-07T09:09:22Z'),
+(619102, 'Test status 5', '', 3, 4, 4, 58454, 43188, '2016-12-07T09:22:09Z', NULL, '2016-12-07T09:22:09Z'),
+(619104, 'Test status 6', '', 4, 4, 4, 58454, 43188, '2016-12-07T09:22:37Z', NULL, '2016-12-07T09:22:37Z'),
+(619105, 'Test status 7', '', 6, 4, 4, 58454, 43188, '2016-12-07T09:24:20Z', '2016-12-07T09:24:20Z', '2016-12-07T09:24:20Z'),
+(619119, 'testFeature', '', 1, 4, 2, 58454, 43188, '2016-12-07T10:12:36Z', NULL, '2016-12-07T10:12:36Z'),
+(619120, 'TestBug', '', 1, 4, 1, 58454, 43188, '2016-12-07T10:13:01Z', NULL, '2016-12-07T10:13:01Z'),
+(619121, 'testSupport', '', 1, 4, 3, 58454, 43188, '2016-12-07T10:13:25Z', NULL, '2016-12-07T10:13:25Z'),
+(619216, 'Urgent appelez les pompiers', '', 1, 7, 4, 58454, 43188, '2016-12-07T12:36:08Z', NULL, '2016-12-07T12:36:08Z');
 
 -- --------------------------------------------------------
 
@@ -153,21 +200,19 @@ INSERT INTO `tracker` (`id`, `name`) VALUES
 
 CREATE TABLE `utilisateur` (
   `id` int(11) NOT NULL,
-  `login` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  `firstname` varchar(100) NOT NULL,
-  `lastname` varchar(100) NOT NULL,
-  `mail` varchar(200) NOT NULL,
-  `last_login_on` date DEFAULT NULL,
-  `date_cree` date NOT NULL
+  `name` varchar(100) NOT NULL,
+  `group_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `utilisateur`
 --
 
-INSERT INTO `utilisateur` (`id`, `login`, `password`, `firstname`, `lastname`, `mail`, `last_login_on`, `date_cree`) VALUES
-(1, 'root', 'toto', 'root', 'toto', 'toto@root.com', NULL, '2016-12-06');
+INSERT INTO `utilisateur` (`id`, `name`, `group_id`) VALUES
+(56780, 'Tony Smagghe', 3),
+(58454, 'firstline i2l', 4),
+(58455, 'Jérôme Buisine', 4),
+(58457, 'Thomas Caron', 4);
 
 --
 -- Index pour les tables exportées
@@ -177,6 +222,12 @@ INSERT INTO `utilisateur` (`id`, `login`, `password`, `firstname`, `lastname`, `
 -- Index pour la table `commit`
 --
 ALTER TABLE `commit`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `group`
+--
+ALTER TABLE `group`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -235,8 +286,3 @@ ALTER TABLE `notification`
 --
 ALTER TABLE `projet`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `utilisateur`
---
-ALTER TABLE `utilisateur`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
