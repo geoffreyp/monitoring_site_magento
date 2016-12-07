@@ -1,5 +1,6 @@
 <?php
 require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../helper/Bdd.php';
 
 use GuzzleHttp\Client;
 
@@ -50,7 +51,7 @@ function getNbTicketByGroup($apikey, $group){
 
     $json1 = json_decode($response1->getBody());
 
-    $nbElements  = $json1->{'total_count'};;
+    $nbElements  = $json1->{'total_count'};
 
 
 
@@ -83,4 +84,41 @@ function getNbTicketByStatus($apikey, $status_id){
     $json = json_decode($response->getBody());
 
     return $json->{'total_count'};
+}
+
+function getTicket($apikey){
+
+    $client = new GuzzleHttp\Client(['base_uri' => 'http://www.hostedredmine.com/']);
+    $response = $client->request('GET', 'http://www.hostedredmine.com/issues.json?project_id=43188&status_id=*',
+        ['headers' => ['X-Redmine-API-Key' => $apikey]]);
+
+    $json = json_decode($response->getBody());
+
+    $nbElements  = $json->{'total_count'};
+
+
+    for ($i=0; $i<$nbElements; $i++) {
+
+        $idTicket = $json->issues[$i]->id;
+
+        $bdd = new Bdd();
+        $verif = $bdd->getTicketExist($idTicket);
+
+        if ($verif == 0) {
+
+
+            $subject = $json->issues[$i]->subject;
+            $description = $json->issues[$i]->description;
+            $idStatus = $json->issues[$i]->status->id;
+            $idPriorite = $json->issues[$i]->priority->id;
+            $idTracker = $json->issues[$i]->tracker->id;
+            $idUser = $json->issues[$i]->author->id;
+            $idProject = $json->issues[$i]->project->id;
+            $dateCree = $json->issues[$i]->created_on;
+            $dateFin = $json->issues[$i]->closed_on;
+            $dateModif = $json->issues[$i]->updated_on;
+
+            $bdd->insertTicket($idTicket, $subject, $description, $idStatus, $idPriorite, $idTracker, $idUser, $idProject, $dateCree, $dateFin, $dateModif);
+        }
+    }
 }
