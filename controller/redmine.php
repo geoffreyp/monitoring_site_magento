@@ -28,7 +28,7 @@ function getNbTicketClosedToday($apikey){
 
     return $json->{'total_count'};
 }
-getNbTicketClosedToday("c232cdf169899c7c6074eecf42f7827ae37be34e");
+
 function getNbTicketByGroup($apikey, $group){
 
     $nb = 0;
@@ -64,5 +64,13 @@ function getNbTicketByGroup($apikey, $group){
     return $nb;
 }
 
-getNbTicketByGroup("c232cdf169899c7c6074eecf42f7827ae37be34e",4);
+function getNbTicketByStatus($apikey, $status_id){
 
+    $client = new GuzzleHttp\Client(['base_uri' => 'http://www.hostedredmine.com/']);
+    $response = $client->request('GET', 'http://www.hostedredmine.com/issues.json?project_id=43188&status_id='.$status_id,
+        ['headers' => ['X-Redmine-API-Key' => $apikey]]);
+
+    $json = json_decode($response->getBody());
+
+    return $json->{'total_count'};
+}
