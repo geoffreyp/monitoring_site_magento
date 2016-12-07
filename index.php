@@ -2,7 +2,6 @@
 error_reporting(E_ALL);
 require('controller/redmine.php');
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,7 +46,7 @@ require('controller/redmine.php');
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="index.html" class="logo">
+    <a href="index.php" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
@@ -109,7 +108,6 @@ require('controller/redmine.php');
           <!-- Tasks: style can be found in dropdown.less -->
 
           <!-- User Account: style can be found in dropdown.less -->
-
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
@@ -121,7 +119,6 @@ require('controller/redmine.php');
         </ul>
       </div>
     </nav>
-
   </header>
   <!-- Left side column. contains the logo and sidebar -->
 
@@ -207,7 +204,21 @@ require('controller/redmine.php');
       </div>
       <!-- /.row -->
       <!-- Main row -->
-      
+      <div class="row">
+          <div class="box box-widget widget-user-2">
+              <!-- Add the bg color to the header using any of the bg-* classes -->
+              <div class="widget-user-header bg-yellow">
+                  <!-- /.widget-user-image -->
+                  <h3 class="widget-user-username">Ticket Opened By Group</h3>
+              </div>
+              <div class="box-footer no-padding">
+                  <ul class="nav nav-stacked">
+                      <li><a href="#">Manager <span class="pull-right badge bg-blue"><?php echo getNbTicketByGroup("c232cdf169899c7c6074eecf42f7827ae37be34e",3); ?></span></a></li>
+                      <li><a href="#">Developer <span class="pull-right badge bg-red"><?php echo getNbTicketByGroup("c232cdf169899c7c6074eecf42f7827ae37be34e",4); ?></span></a></li>
+                  </ul>
+              </div>
+          </div>
+      </div>
 
     </section>
     <!-- /.content -->
