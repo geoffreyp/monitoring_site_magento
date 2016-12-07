@@ -28,7 +28,17 @@ function getNbTicketClosedToday($apikey){
 
     return $json->{'total_count'};
 }
-getNbTicketClosedToday("c232cdf169899c7c6074eecf42f7827ae37be34e");
+
+function getNbTicketClosedMonth($apikey){
+    $client = new GuzzleHttp\Client(['base_uri' => 'http://www.hostedredmine.com/']);
+    $response = $client->request('GET', 'http://www.hostedredmine.com/issues.json?project_id=43188&status_id=closed&updated_on=%3E%3D'.date('Y').'-'.date('m').'-01',
+        ['headers' => ['X-Redmine-API-Key' => $apikey]]);
+
+    $json = json_decode($response->getBody());
+
+    return $json->{'total_count'};
+}
+
 function getNbTicketByGroup($apikey, $group){
 
     $nb = 0;
@@ -63,6 +73,4 @@ function getNbTicketByGroup($apikey, $group){
     }
     return $nb;
 }
-
-getNbTicketByGroup("c232cdf169899c7c6074eecf42f7827ae37be34e",4);
 

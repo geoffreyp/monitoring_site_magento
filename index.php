@@ -193,9 +193,9 @@ require('controller/redmine.php');
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <h3>44</h3>
+              <h3><?php echo getNbTicketClosedMonth("c232cdf169899c7c6074eecf42f7827ae37be34e"); ?></h3>
 
-              <p>User Registrations</p>
+              <p>Ticket Closed this Month</p>
             </div>
             <div class="icon">
               <i class="ion ion-person-add"></i>
