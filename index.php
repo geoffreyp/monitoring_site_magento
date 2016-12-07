@@ -1,11 +1,17 @@
 <?php
+error_reporting(E_ALL);
 session_start();
 if(empty($_SESSION['login']) && empty($_SESSION['password']) ){
     header('Location: login.php');
 }
 
-error_reporting(E_ALL);
+require('helper/Bdd.php');
+$bdd_i = new Bdd();
 require('controller/redmine.php');
+
+
+
+$notifications = $bdd_i->getActiveNotification();
 ?>
 <!DOCTYPE html>
 <html>
@@ -59,6 +65,28 @@ require('controller/redmine.php');
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <a href="deconnexion.php" class="btn btn-danger">Deconnexion</a>
+      <?php if(sizeof($notifications) > 0): ?>
+      <div class="row notif">
+          <div class="alert alert-danger alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+              <?php
+              $tickets = "";
+              // var_dump($notifications);
+              for($i=0; $i < sizeof($notifications); $i++){
+                  $tickets.=$notifications[$i]["name"];
+                  if($i != sizeof($notifications)-1){
+                      $tickets.=", ";
+                  }else{
+                      $tickets.=" ";
+                  }
+              }
+              ?>
+
+              <strong>Warning!</strong> Tickets <?php echo $tickets?> are urgent and opened since more 8 hours
+          </div>
+      </div>
+      <?php endif; ?>
     <!-- Main content -->
     <section class="content">
       <!-- Small boxes (Stat box) -->
@@ -92,7 +120,6 @@ require('controller/redmine.php');
             <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
-        <!-- ./col -->
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-yellow">

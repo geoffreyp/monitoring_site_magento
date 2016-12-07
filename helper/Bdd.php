@@ -5,7 +5,7 @@ class Bdd{
     function __construct(){
         try
         {
-            $this->bdd = new PDO('mysql:host=localhost;dbname=monitoring;charset=utf8', 'root', 'root');
+            $this->bdd = new PDO('mysql:host=localhost;dbname=i2l;charset=utf8', 'root', 'toto');
         }
         catch (Exception $e)
         {
@@ -13,21 +13,29 @@ class Bdd{
         }
     }
 
-    function insertNotification($name, $importance, $description=null){
-        $req = $this->bdd->prepare('INSERT INTO notification(name, description, importance) VALUES(:name, :description, :importance)');
-        $req->execute(array(
+    function insertNotification($name, $importance, $date, $active, $description=null){
+        $req = $this->bdd->prepare('INSERT INTO notification(name, description, importance, active, date) VALUES(:name, :description, :importance, :active, :date)');
+        $res = $req->execute(array(
             'name' => $name,
             'description' => $description,
-            'importance' => $importance
+            'importance' => $importance,
+            'date' => $date,
+            'active' => $active
         ));
+
+        var_dump($res);
     }
 
     function getActiveNotification(){
-        $resp = $this->bdd->query('SELECT * FROM notification');
+        $resp = $this->bdd->query('SELECT * FROM notification WHERE active=1');
         $result = [];
-        while ($donnees = $resp->fetch())
-        {
-            $result[] = $donnees;
+        if($resp){
+            while ($donnees = $resp->fetch())
+            {
+                $result[] = $donnees;
+            }
+        }else{
+            return [];
         }
 
         $resp->closeCursor();
