@@ -106,6 +106,12 @@ class Bdd{
         return $resp;
     }
 
+    function getNbTicketByStatusId($id_status){
+        $resp = $this->bdd->query('SELECT COUNT(*) FROM ticket WHERE statut_id ='.$id_status)->fetchColumn();
+
+        return $resp;
+    }
+
     function getVerifConnexion($email, $password){
         $resp = $this->bdd->query('SELECT COUNT(*) FROM connexion WHERE email = \''.$email.'\' AND password = \''.$password.'\'')->fetchColumn();
 
@@ -115,10 +121,7 @@ class Bdd{
 
 
 }
-//$bdd = new Bdd();
-//$bdd->insertTicket(619105, "Test status 7", "", 6, 4, 4, 58454, 43188, "2016-12-07T09:24:20Z", "2016-12-07T09:24:20Z", "2016-12-07T09:24:20Z");
-//$bdd->getTicketExist(619105);
-//$bdd->getVerifConnexion('root@root.fr', 'toto');
+
 ?>
 
 

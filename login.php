@@ -58,7 +58,8 @@
         if(!empty($_POST['submit'])) {
             $login = $_POST['email'];
             $password = $_POST['password'];
-            if (($login =="root@root.fr" ) && ($password == "toto" )) {
+            if($bdd->getVerifConnexion($login,$password) == 1){
+            //if (($login =="root@root.fr" ) && ($password == "toto" )) {
                 session_start();
                 $_SESSION["login"] = $login;
                 $_SESSION["password"]= $password;
