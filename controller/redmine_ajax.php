@@ -10,4 +10,8 @@
     if(isset($_GET['ticket'])) {
         getTicket("c232cdf169899c7c6074eecf42f7827ae37be34e");
     }
+
+    if(isset($_GET['utilisateur'])) {
+        getUser("c232cdf169899c7c6074eecf42f7827ae37be34e");
+    }
 ?>
