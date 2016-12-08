@@ -5,7 +5,7 @@ class Bdd{
     function __construct(){
         try
         {
-            $this->bdd = new PDO('mysql:host=localhost:8889;dbname=monitoring;charset=utf8', 'root', 'root');
+            $this->bdd = new PDO('mysql:host=localhost;dbname=i2l;charset=utf8', 'root', 'toto');
         }
         catch (Exception $e)
         {
@@ -77,38 +77,58 @@ class Bdd{
 
 
     function getNbTicketOpened(){
-        $resp = $this->bdd->query('SELECT COUNT(*) FROM ticket WHERE statut_id NOT IN (5,6)')->fetchColumn();
+        try{
+            $resp = $this->bdd->query('SELECT COUNT(*) FROM ticket WHERE statut_id NOT IN (5,6)')->fetchColumn();
+        }catch (Exception $e){
+            return 0;
+        }
+
 
         return $resp;
     }
 
     function getNbTicketClosedToday(){
+        try{
         $resp = $this->bdd->query('SELECT COUNT(*) FROM ticket WHERE substr(date_cree,1,10) = str_to_date(sysdate(),"%Y-%m-%d") AND statut_id IN (5,6)')->fetchColumn();
-
+        }catch (Exception $e){
+            return 0;
+        }
         return $resp;
     }
 
     function getNbTicketClosedThisMonth(){
+        try{
         $resp = $this->bdd->query('SELECT COUNT(*) FROM ticket WHERE substr(date_cree,6,2) = month(now()) AND statut_id IN (5,6)')->fetchColumn();
-
+        }catch (Exception $e){
+            return 0;
+        }
         return $resp;
     }
 
     function getNbTicketOpenedByGroup($group){
+        try{
         $resp = $this->bdd->query('SELECT COUNT(*) FROM ticket AS t, utilisateur AS u, groupe AS g WHERE t.statut_id NOT IN (5,6) AND t.user_id = u.id AND u.group_id = g.id AND g.name = \''.$group.'\' GROUP BY u.group_id')->fetchColumn();
-
+        }catch (Exception $e){
+            return 0;
+        }
         return $resp;
     }
 
     function getNbTicketByStatus($status){
+        try{
         $resp = $this->bdd->query('SELECT COUNT(*) FROM ticket AS t, statut AS s WHERE t.statut_id = s.id AND s.name = \''.$status.'\'')->fetchColumn();
-
+        }catch (Exception $e){
+            return 0;
+        }
         return $resp;
     }
 
     function getNbTicketByStatusId($id_status){
+        try{
         $resp = $this->bdd->query('SELECT COUNT(*) FROM ticket WHERE statut_id ='.$id_status)->fetchColumn();
-
+        }catch (Exception $e){
+            return 0;
+        }
         return $resp;
     }
 
