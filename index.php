@@ -74,7 +74,6 @@ require('controller/redmine.php');
             <div class="icon">
               <i class="ion ion-bag"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -89,7 +88,6 @@ require('controller/redmine.php');
             <div class="icon">
               <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -104,7 +102,6 @@ require('controller/redmine.php');
             <div class="icon">
               <i class="ion ion-person-add"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -119,7 +116,6 @@ require('controller/redmine.php');
             <div class="icon">
               <i class="ion ion-pie-graph"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -127,37 +123,40 @@ require('controller/redmine.php');
       <!-- /.row -->
       <!-- Main row -->
       <div class="row">
-          <div class="box box-widget widget-user-2">
+          <div class="box-widget widget-user-2 col-md-6 col-sm-12">
               <!-- Add the bg color to the header using any of the bg-* classes -->
-              <div class="widget-user-header bg-yellow">
+              <div class="widget-user-header bg-green">
                   <!-- /.widget-user-image -->
-                  <h3 class="widget-user-username">Ticket Opened By Group</h3>
+                  <h3 class="ticket_title">Ticket Opened
+                      <span style="font-weight: bold;float: right;font-size: 50px;margin-top: -15px;">
+                          <?php echo getNbTicket("c232cdf169899c7c6074eecf42f7827ae37be34e"); ?>
+                      </span>
+                  </h3>
               </div>
-              <div class="box-footer no-padding">
+              <div class="box-footer no-padding" style="height: 286px;">
                   <ul class="nav nav-stacked">
-                      <li><a href="#">Manager <span class="pull-right badge bg-blue"><?php echo getNbTicketByGroup("c232cdf169899c7c6074eecf42f7827ae37be34e",3); ?></span></a></li>
-                      <li><a href="#">Developer <span class="pull-right badge bg-red"><?php echo getNbTicketByGroup("c232cdf169899c7c6074eecf42f7827ae37be34e",4); ?></span></a></li>
+                      <li><a href="#" class="list-ticket">Manager <span class="pull-right badge bg-blue list-ticket-ico"><?php echo getNbTicketByGroup("c232cdf169899c7c6074eecf42f7827ae37be34e",3); ?></span></a></li>
+                      <li><a href="#" class="list-ticket">Developer <span class="pull-right badge bg-red list-ticket-ico"><?php echo getNbTicketByGroup("c232cdf169899c7c6074eecf42f7827ae37be34e",4); ?></span></a></li>
                   </ul>
               </div>
           </div>
-      </div>
-      <div class="row">
-            <div class="box box-widget widget-user-2">
-                <!-- Add the bg color to the header using any of the bg-* classes -->
-                <div class="widget-user-header bg-aqua">
-                    <!-- /.widget-user-image -->
-                    <h3 class="widget-user-username">Number of Tickets By Status</h3>
-                </div>
-                <div class="box-footer no-padding">
-                    <ul class="nav nav-stacked">
-                        <li><a href="#">New <span class="pull-right badge bg-blue"><?php echo getNbTicketByStatus("c232cdf169899c7c6074eecf42f7827ae37be34e",1); ?></span></a></li>
-                        <li><a href="#">Assigned <span class="pull-right badge bg-blue"><?php echo getNbTicketByStatus("c232cdf169899c7c6074eecf42f7827ae37be34e",2); ?></span></a></li>
-                        <li><a href="#">In Progress <span class="pull-right badge bg-blue"><?php echo getNbTicketByStatus("c232cdf169899c7c6074eecf42f7827ae37be34e",8); ?></span></a></li>
-                        <li><a href="#">Resolved <span class="pull-right badge bg-green"><?php echo getNbTicketByStatus("c232cdf169899c7c6074eecf42f7827ae37be34e",3); ?></span></a></li>
-                        <li><a href="#">Blocked <span class="pull-right badge bg-red"><?php echo getNbTicketByStatus("c232cdf169899c7c6074eecf42f7827ae37be34e",7); ?></span></a></li>
-                    </ul>
-                </div>
-            </div>
+
+          <div class="box-widget widget-user-2 col-md-6 col-sm-12">
+              <!-- Add the bg color to the header using any of the bg-* classes -->
+              <div class="widget-user-header bg-aqua">
+                  <!-- /.widget-user-image -->
+                  <h3 class="ticket_title">Number of Tickets By Status</h3>
+              </div>
+              <div class="box-footer no-padding" style="height: 286px;">
+                  <ul class="nav nav-stacked">
+                      <li><a href="#" class="list-ticket">New <span class="pull-right badge bg-orange list-ticket-ico"><?php echo getNbTicketByStatus("c232cdf169899c7c6074eecf42f7827ae37be34e",1); ?></span></a></li>
+                      <li><a href="#" class="list-ticket">Assigned <span class="pull-right badge bg-blue list-ticket-ico"><?php echo getNbTicketByStatus("c232cdf169899c7c6074eecf42f7827ae37be34e",2); ?></span></a></li>
+                      <li><a href="#" class="list-ticket">In Progress <span class="pull-right badge bg-blue list-ticket-ico"><?php echo getNbTicketByStatus("c232cdf169899c7c6074eecf42f7827ae37be34e",8); ?></span></a></li>
+                      <li><a href="#" class="list-ticket">Resolved <span class="pull-right badge bg-green list-ticket-ico"><?php echo getNbTicketByStatus("c232cdf169899c7c6074eecf42f7827ae37be34e",3); ?></span></a></li>
+                      <li><a href="#" class="list-ticket">Blocked <span class="pull-right badge bg-red list-ticket-ico"><?php echo getNbTicketByStatus("c232cdf169899c7c6074eecf42f7827ae37be34e",7); ?></span></a></li>
+                  </ul>
+              </div>
+          </div>
       </div>
 
     </section>

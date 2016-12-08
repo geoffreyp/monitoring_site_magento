@@ -1489,14 +1489,14 @@ a:focus {
   background: rgba(0, 0, 0, 0.15);
 }
 .small-box h3 {
-  font-size: 38px;
+  font-size: 65px;
   font-weight: bold;
   margin: 0 0 10px 0;
   white-space: nowrap;
   padding: 0;
 }
 .small-box p {
-  font-size: 15px;
+  font-size: 27px;
 }
 .small-box p > small {
   display: block;
@@ -1541,6 +1541,16 @@ a:focus {
  * Component: Box
  * --------------
  */
+.ticket_title{
+    margin: 0;
+    text-align: center;
+}
+.list-ticket{
+    font-size: 25px;
+}
+.list-ticket-ico{
+    font-size: 25px;
+}
 .box {
   position: relative;
   border-radius: 3px;
