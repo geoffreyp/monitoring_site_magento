@@ -5,7 +5,7 @@ class Bdd{
     function __construct(){
         try
         {
-            $this->bdd = new PDO('mysql:host=localhost;dbname=i2l;charset=utf8', 'root', 'toto');
+            $this->bdd = new PDO('mysql:host=localhost:8889;dbname=monitoring;charset=utf8', 'root', 'root');
         }
         catch (Exception $e)
         {
@@ -140,7 +140,76 @@ class Bdd{
 
 
 
+    // GITLAB //
+
+    function getProjectExist($id){
+        $resp = $this->bdd->query('SELECT COUNT(*) FROM gitlab_project WHERE id ='.$id)->fetchColumn();
+
+        return $resp;
+    }
+
+
+    function getCommitExist($id){
+        $resp = $this->bdd->query('SELECT COUNT(*) FROM commit WHERE id =\''.$id.'\'' )->fetchColumn();
+
+        return $resp;
+    }
+
+
+    function insertGitlabProject($id, $name){
+        $req = $this->bdd->prepare('INSERT INTO gitlab_project(id, name) VALUES(:id, :name)');
+        $req->execute(array(
+            'id' => $id,
+            'name' => $name
+        ));
+    }
+
+    function insertGitlabCommit($id, $titre, $author_name, $author_email, $message, $date_cree, $project_id){
+        $req = $this->bdd->prepare('INSERT INTO commit(id, titre, author_name, author_email, message, date_cree, project_id) VALUES(:id, :titre, :author_name, :author_email, :message, :date_cree, :project_id)');
+        $req->execute(array(
+            'id' => $id,
+            'titre' => $titre,
+            'author_name' => $author_name,
+            'author_email' => $author_email,
+            'message' => $message,
+            'date_cree' => $date_cree,
+            'project_id' => $project_id
+        ));
+    }
+
+
+    function getNbCommit(){
+        try{
+            $resp = $this->bdd->query('SELECT COUNT(*) FROM commit')->fetchColumn();
+        }catch (Exception $e){
+            return 0;
+        }
+        return $resp;
+    }
+
+    function getNbCommitByUser(){
+        try{
+            $resp = $this->bdd->query('SELECT author_name, COUNT(*) AS nb FROM commit GROUP BY author_email');
+            $result = [];
+            while ($donnees = $resp->fetch())
+            {
+                $result[] = $donnees;
+            }
+
+            $resp->closeCursor();
+
+        }catch (Exception $e){
+            return 0;
+        }
+        return $result;
+    }
+
+
+
 }
+
+
+
 
 ?>
 
