@@ -1,0 +1,9 @@
+{
+  "bdd": {
+    "ip": "localhost",
+    "name": "i2l",
+    "user": "root",
+    "password": "toto",
+    "port":""
+  }
+}
