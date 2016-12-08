@@ -5,8 +5,9 @@ if(empty($_SESSION['login']) && empty($_SESSION['password']) ){
 }
 
 error_reporting(E_ALL);
+require __DIR__.'/helper/loadConf.php';
 require('controller/redmine.php');
-$bdd = new Bdd();
+$bdd = new Bdd($conf);
 ?>
 <!DOCTYPE html>
 <html>

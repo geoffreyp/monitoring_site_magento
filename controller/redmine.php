@@ -86,7 +86,7 @@ function getNbTicketByStatus($apikey, $status_id){
     return $json->{'total_count'};
 }
 
-function getTicket($apikey){
+function getTicket($apikey, $conf){
 
     $client = new GuzzleHttp\Client(['base_uri' => 'http://www.hostedredmine.com/']);
     $response = $client->request('GET', 'http://www.hostedredmine.com/issues.json?project_id=43188&status_id=*',
@@ -101,7 +101,7 @@ function getTicket($apikey){
 
         $idTicket = $json->issues[$i]->id;
 
-        $bdd = new Bdd();
+        $bdd = new Bdd($conf);
         $verif = $bdd->getTicketExist($idTicket);
 
         if ($verif == 0) {
@@ -123,7 +123,7 @@ function getTicket($apikey){
     }
 }
 
-function getUser($apikey){
+function getUser($apikey, $conf){
 
     $client = new GuzzleHttp\Client(['base_uri' => 'http://www.hostedredmine.com/']);
     $response = $client->request('GET', 'http://www.hostedredmine.com/projects/ulco2016project1/memberships.json',
@@ -137,7 +137,7 @@ function getUser($apikey){
 
         $idUser = $json->memberships[$i]->user->id;
 
-        $bdd = new Bdd();
+        $bdd = new Bdd($conf);
         $verif = $bdd->getUserExist($idUser);
 
         if ($verif == 0) {

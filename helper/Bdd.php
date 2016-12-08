@@ -2,10 +2,10 @@
 
 class Bdd{
     private $bdd;
-    function __construct(){
+    function __construct($conf){
         try
         {
-            $this->bdd = new PDO('mysql:host=localhost;dbname=i2l;charset=utf8', 'root', 'toto');
+            $this->bdd = new PDO('mysql:host='.$conf->{'bdd'}->{'ip'}.$conf->{'bdd'}->{'port'}.';dbname='.$conf->{'bdd'}->{'name'}.';charset=utf8', $conf->{'bdd'}->{'user'}, $conf->{'bdd'}->{'password'});
         }
         catch (Exception $e)
         {
