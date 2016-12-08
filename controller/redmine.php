@@ -96,13 +96,14 @@ function getTicket($apikey, $conf){
 
     $nbElements  = $json->{'total_count'};
 
+    $bdd = new Bdd($conf);
+    $res_drop = $bdd->beginTransaction();
 
     for ($i=0; $i<$nbElements; $i++) {
 
         $idTicket = $json->issues[$i]->id;
 
-        $bdd = new Bdd($conf);
-        $verif = $bdd->getTicketExist($idTicket);
+        $verif = 0;
 
         if ($verif == 0) {
 
@@ -115,12 +116,17 @@ function getTicket($apikey, $conf){
             $idUser = $json->issues[$i]->author->id;
             $idProject = $json->issues[$i]->project->id;
             $dateCree = $json->issues[$i]->created_on;
-            $dateFin = $json->issues[$i]->closed_on;
+            try {
+                $dateFin = NULL;
+            }catch(Exception $e){
+                $dateFin = NULL;
+            }
             $dateModif = $json->issues[$i]->updated_on;
 
-            $bdd->insertTicket($idTicket, $subject, $description, $idStatus, $idPriorite, $idTracker, $idUser, $idProject, $dateCree, $dateFin, $dateModif);
+            $res_insert = $bdd->insertTicket($idTicket, $subject, $description, $idStatus, $idPriorite, $idTracker, $idUser, $idProject, $dateCree, $dateFin, $dateModif);
         }
     }
+    $bdd->endTransaction($res_drop,$res_insert);
 }
 
 function getUser($apikey, $conf){
