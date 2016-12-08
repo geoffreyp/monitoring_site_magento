@@ -89,7 +89,7 @@ class Bdd{
 
     function getNbTicketClosedToday(){
         try{
-        $resp = $this->bdd->query('SELECT COUNT(*) FROM ticket WHERE substr(date_cree,1,10) = str_to_date(sysdate(),"%Y-%m-%d") AND statut_id IN (5,6)')->fetchColumn();
+        $resp = $this->bdd->query('SELECT COUNT(*) FROM ticket WHERE substr(date_fin,1,10) = str_to_date(sysdate(),"%Y-%m-%d") AND statut_id IN (5,6)')->fetchColumn();
         }catch (Exception $e){
             return 0;
         }
