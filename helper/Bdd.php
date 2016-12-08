@@ -76,11 +76,49 @@ class Bdd{
     }
 
 
+    function getNbTicketOpened(){
+        $resp = $this->bdd->query('SELECT COUNT(*) FROM ticket WHERE statut_id NOT IN (5,6)')->fetchColumn();
+
+        return $resp;
+    }
+
+    function getNbTicketClosedToday(){
+        $resp = $this->bdd->query('SELECT COUNT(*) FROM ticket WHERE substr(date_cree,1,10) = str_to_date(sysdate(),"%Y-%m-%d") AND statut_id IN (5,6)')->fetchColumn();
+
+        return $resp;
+    }
+
+    function getNbTicketClosedThisMonth(){
+        $resp = $this->bdd->query('SELECT COUNT(*) FROM ticket WHERE substr(date_cree,6,2) = month(now()) AND statut_id IN (5,6)')->fetchColumn();
+
+        return $resp;
+    }
+
+    function getNbTicketOpenedByGroup($group){
+        $resp = $this->bdd->query('SELECT COUNT(*) FROM ticket AS t, utilisateur AS u, groupe AS g WHERE t.statut_id NOT IN (5,6) AND t.user_id = u.id AND u.group_id = g.id AND g.name = \''.$group.'\' GROUP BY u.group_id')->fetchColumn();
+
+        return $resp;
+    }
+
+    function getNbTicketByStatus($status){
+        $resp = $this->bdd->query('SELECT COUNT(*) FROM ticket AS t, statut AS s WHERE t.statut_id = s.id AND s.name = \''.$status.'\'')->fetchColumn();
+
+        return $resp;
+    }
+
+    function getVerifConnexion($email, $password){
+        $resp = $this->bdd->query('SELECT COUNT(*) FROM connexion WHERE email = \''.$email.'\' AND password = \''.$password.'\'')->fetchColumn();
+
+        return $resp;
+    }
+
+
 
 }
 //$bdd = new Bdd();
 //$bdd->insertTicket(619105, "Test status 7", "", 6, 4, 4, 58454, 43188, "2016-12-07T09:24:20Z", "2016-12-07T09:24:20Z", "2016-12-07T09:24:20Z");
 //$bdd->getTicketExist(619105);
+//$bdd->getVerifConnexion('root@root.fr', 'toto');
 ?>
 
 
