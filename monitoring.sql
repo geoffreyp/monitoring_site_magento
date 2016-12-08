@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  localhost
--- Généré le :  Jeu 08 Décembre 2016 à 10:55
+-- Généré le :  Jeu 08 Décembre 2016 à 14:33
 -- Version du serveur :  5.6.33
 -- Version de PHP :  7.0.12
 
@@ -22,11 +22,14 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `commit` (
   `id` varchar(100) NOT NULL,
-  `user_id` int(11) NOT NULL,
   `titre` varchar(100) NOT NULL,
-  `commentaire` varchar(250) DEFAULT NULL,
-  `date_cree` date NOT NULL
+  `author_name` varchar(100) NOT NULL,
+  `author_email` varchar(100) NOT NULL,
+  `message` varchar(200) NOT NULL,
+  `date_cree` date NOT NULL,
+  `project_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 -- --------------------------------------------------------
 
@@ -46,6 +49,19 @@ CREATE TABLE `connexion` (
 
 INSERT INTO `connexion` (`id`, `email`, `password`) VALUES
 (1, 'root@root.fr', 'toto');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `gitlab_project`
+--
+
+CREATE TABLE `gitlab_project` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
 
 -- --------------------------------------------------------
 
@@ -163,6 +179,8 @@ CREATE TABLE `ticket` (
   `date_modif` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+
+
 -- --------------------------------------------------------
 
 --
@@ -196,6 +214,15 @@ CREATE TABLE `utilisateur` (
   `group_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Contenu de la table `utilisateur`
+--
+
+INSERT INTO `utilisateur` (`id`, `name`, `group_id`) VALUES
+(56780, 'Tony Smagghe', 3),
+(58454, 'firstline i2l', 4),
+(58455, 'Jérôme Buisine', 4),
+(58457, 'Thomas Caron', 4);
 
 --
 -- Index pour les tables exportées
@@ -211,6 +238,12 @@ ALTER TABLE `commit`
 -- Index pour la table `connexion`
 --
 ALTER TABLE `connexion`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `gitlab_project`
+--
+ALTER TABLE `gitlab_project`
   ADD PRIMARY KEY (`id`);
 
 --

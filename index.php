@@ -111,9 +111,9 @@ $bdd = new Bdd($conf);
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
-              <h3>65</h3>
+              <h3><?php echo $bdd->getNbCommit()?></h3>
 
-              <p>Unique Visitors</p>
+              <p>Commits</p>
             </div>
             <div class="icon">
               <i class="ion ion-pie-graph"></i>
@@ -125,7 +125,7 @@ $bdd = new Bdd($conf);
       <!-- /.row -->
       <!-- Main row -->
       <div class="row">
-          <div class="box-widget widget-user-2 col-md-6 col-sm-12">
+          <div class="box-widget widget-user-2 col-md-4 col-sm-12">
               <!-- Add the bg color to the header using any of the bg-* classes -->
               <div class="widget-user-header bg-green">
                   <!-- /.widget-user-image -->
@@ -143,7 +143,7 @@ $bdd = new Bdd($conf);
               </div>
           </div>
 
-          <div class="box-widget widget-user-2 col-md-6 col-sm-12">
+          <div class="box-widget widget-user-2 col-md-4 col-sm-12">
               <!-- Add the bg color to the header using any of the bg-* classes -->
               <div class="widget-user-header bg-aqua">
                   <!-- /.widget-user-image -->
@@ -156,6 +156,27 @@ $bdd = new Bdd($conf);
                       <li><a href="#" class="list-ticket">In Progress <span class="pull-right badge bg-blue list-ticket-ico"><?php echo $bdd->getNbTicketByStatusId(8); ?></span></a></li>
                       <li><a href="#" class="list-ticket">Resolved <span class="pull-right badge bg-green list-ticket-ico"><?php echo $bdd->getNbTicketByStatusId(3); ?></span></a></li>
                       <li><a href="#" class="list-ticket">Blocked <span class="pull-right badge bg-red list-ticket-ico"><?php echo $bdd->getNbTicketByStatusId(7); ?></span></a></li>
+                  </ul>
+              </div>
+          </div>
+
+          <div class="box-widget widget-user-2 col-md-4 col-sm-12">
+              <!-- Add the bg color to the header using any of the bg-* classes -->
+              <div class="widget-user-header bg-green">
+                  <!-- /.widget-user-image -->
+                  <h3 class="ticket_title">Number of Commits by user</h3>
+              </div>
+              <div class="box-footer no-padding" style="height: 286px;">
+                  <ul class="nav nav-stacked">
+
+                      <?php
+                      $commits = $bdd->getNbCommitByUser();
+                        foreach($commits AS $c):
+                      ?>
+                      <li><a href="#" class="list-ticket"><?php echo $c['author_name']?><span class="pull-right badge bg-blue list-ticket-ico"><?php echo $c['nb']?></span></a></li>
+                      <?php
+                        endforeach;
+                      ?>
                   </ul>
               </div>
           </div>
