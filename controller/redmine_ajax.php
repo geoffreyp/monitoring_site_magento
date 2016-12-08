@@ -8,7 +8,7 @@
     include "redmine.php";
     include "../helper/loadConf.php";
 
-    $bdd = new Bdd();
+    $bdd = new Bdd($conf);
 
     if(isset($_GET['ticket'])) {
         getTicket("c232cdf169899c7c6074eecf42f7827ae37be34e", $conf);
