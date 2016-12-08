@@ -5,7 +5,7 @@ class Bdd{
     function __construct(){
         try
         {
-            $this->bdd = new PDO('mysql:host=localhost;dbname=i2l;charset=utf8', 'root', 'toto');
+            $this->bdd = new PDO('mysql:host=localhost;dbname=monitoring;charset=utf8', 'root', 'root');
         }
         catch (Exception $e)
         {
@@ -38,7 +38,7 @@ class Bdd{
 
     function insertTicket($id, $subject, $description, $statut_id, $priorite_id, $tracker_id, $user_id, $project_id, $date_cree, $date_fin, $date_modif){
         $req = $this->bdd->prepare('INSERT INTO ticket(id, subject, description, statut_id, priorite_id, tracker_id, user_id, project_id, date_cree, date_fin, date_modif) VALUES(:id, :subject, :description, :statut_id, :priorite_id, :tracker_id, :user_id, :project_id, :date_cree, :date_fin, :date_modif)');
-        $req->execute(array(
+        $res_insert = $req->execute(array(
             'id' => $id,
             'subject' => $subject,
             'description' => $description,
@@ -51,6 +51,24 @@ class Bdd{
             'date_fin' => $date_fin,
             'date_modif' => $date_modif
         ));
+
+        return $res_insert;
+
+    }
+
+    function beginTransaction(){
+
+        $this->bdd->beginTransaction();
+        $res_drop = $this->bdd->exec('TRUNCATE TABLE ticket');
+        return $res_drop;
+    }
+
+    function endTransaction($res_drop,$res_insert){
+        if($res_drop > 0 && $res_insert > 0){
+            $this->bdd->commit();
+        }else{
+            $this->bdd->rollBack();
+        }
     }
 
     function getTicketExist($id){

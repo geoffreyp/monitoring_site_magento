@@ -68,7 +68,7 @@ $bdd = new Bdd();
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-                <h3><?php echo $bdd->getNbTicketOpened();?></h3>
+                <h3 id="ticketOpened"><?php echo $bdd->getNbTicketOpened();?></h3>
 
               <p>Ticket Opened</p>
             </div>
@@ -82,7 +82,7 @@ $bdd = new Bdd();
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-                <h3><?php echo $bdd->getNbTicketClosedToday();?></h3>
+                <h3 id="ticketClosedToday"><?php echo $bdd->getNbTicketClosedToday();?></h3>
 
               <p>Ticket Closed Today</p>
             </div>
@@ -96,7 +96,7 @@ $bdd = new Bdd();
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-                <h3><?php echo $bdd->getNbTicketClosedThisMonth();?></h3>
+                <h3 id="ticketClosedMonth"><?php echo $bdd->getNbTicketClosedThisMonth();?></h3>
 
               <p>Ticket Closed this Month</p>
             </div>
@@ -129,15 +129,15 @@ $bdd = new Bdd();
               <div class="widget-user-header bg-green">
                   <!-- /.widget-user-image -->
                   <h3 class="ticket_title">Ticket Opened
-                      <span style="font-weight: bold;float: right;font-size: 50px;margin-top: -15px;">
+                      <span id ="ticketOpenedSpan" style="font-weight: bold;float: right;font-size: 50px;margin-top: -15px;">
                            <?php echo $bdd->getNbTicketOpened();?>
                       </span>
                   </h3>
               </div>
               <div class="box-footer no-padding" style="height: 286px;">
                   <ul class="nav nav-stacked">
-                      <li><a href="#" class="list-ticket">Manager <span class="pull-right badge bg-blue list-ticket-ico"><?php echo $bdd->getNbTicketOpenedByGroup("Manager"); ?></span></a></li>
-                      <li><a href="#" class="list-ticket">Developer <span class="pull-right badge bg-red list-ticket-ico"><?php echo $bdd->getNbTicketOpenedByGroup("Developer"); ?></span></a></li>
+                      <li><a href="#" class="list-ticket">Manager <span id="ticketManager" class="pull-right badge bg-blue list-ticket-ico"><?php echo $bdd->getNbTicketOpenedByGroup("Manager"); ?></span></a></li>
+                      <li><a href="#" class="list-ticket">Developer <span id="ticketDeveloper" class="pull-right badge bg-red list-ticket-ico"><?php echo $bdd->getNbTicketOpenedByGroup("Developer"); ?></span></a></li>
                   </ul>
               </div>
           </div>
@@ -150,11 +150,11 @@ $bdd = new Bdd();
               </div>
               <div class="box-footer no-padding" style="height: 286px;">
                   <ul class="nav nav-stacked">
-                      <li><a href="#" class="list-ticket">New <span class="pull-right badge bg-orange list-ticket-ico"><?php echo $bdd->getNbTicketByStatusId(1); ?></span></a></li>
-                      <li><a href="#" class="list-ticket">Assigned <span class="pull-right badge bg-blue list-ticket-ico"><?php echo $bdd->getNbTicketByStatusId(2); ?></span></a></li>
-                      <li><a href="#" class="list-ticket">In Progress <span class="pull-right badge bg-blue list-ticket-ico"><?php echo $bdd->getNbTicketByStatusId(8); ?></span></a></li>
-                      <li><a href="#" class="list-ticket">Resolved <span class="pull-right badge bg-green list-ticket-ico"><?php echo $bdd->getNbTicketByStatusId(3); ?></span></a></li>
-                      <li><a href="#" class="list-ticket">Blocked <span class="pull-right badge bg-red list-ticket-ico"><?php echo $bdd->getNbTicketByStatusId(7); ?></span></a></li>
+                      <li><a href="#" class="list-ticket">New <span id="ticketNew" class="pull-right badge bg-orange list-ticket-ico"><?php echo $bdd->getNbTicketByStatusId(1); ?></span></a></li>
+                      <li><a href="#" class="list-ticket">Assigned <span id="ticketAssigned" class="pull-right badge bg-blue list-ticket-ico"><?php echo $bdd->getNbTicketByStatusId(2); ?></span></a></li>
+                      <li><a href="#" class="list-ticket">In Progress <span id="ticketInProgress" class="pull-right badge bg-blue list-ticket-ico"><?php echo $bdd->getNbTicketByStatusId(8); ?></span></a></li>
+                      <li><a href="#" class="list-ticket">Resolved <span id="ticketResolved" class="pull-right badge bg-green list-ticket-ico"><?php echo $bdd->getNbTicketByStatusId(3); ?></span></a></li>
+                      <li><a href="#" class="list-ticket">Blocked <span id="ticketBlocked" class="pull-right badge bg-red list-ticket-ico"><?php echo $bdd->getNbTicketByStatusId(7); ?></span></a></li>
                   </ul>
               </div>
           </div>
